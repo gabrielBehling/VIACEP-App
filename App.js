@@ -4,10 +4,16 @@ function submitCep(){
 }
 
 async function pegarDadosDoCep(cep){
-    var dados = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then(resposta => resposta.json())
+    try{
+        var dados = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(resposta => resposta.json())
 
-    mostrarDados(dados)
+        mostrarDados(dados)
+    } catch(e) {
+        if(e.message == "Failed to fetch"){
+            alert("Cep Inválido")
+        }
+    }
 }
 
 function mostrarDados(dados){
